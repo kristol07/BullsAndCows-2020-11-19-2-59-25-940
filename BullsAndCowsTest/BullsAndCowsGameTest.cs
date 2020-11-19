@@ -169,7 +169,7 @@ namespace BullsAndCowsTest
         [Theory]
         [InlineData("12 3 4")]
         [InlineData("1234")]
-        public void Should_return_wrong_input_tip_when_digits_not_seperated_by_space(string guess)
+        public void Should_return_wrong_input_tip_when_digits_not_separated_by_space(string guess)
         {
             var secretGenerator = new TestSecretGenerator();
             var game = new BullsAndCowsGame(secretGenerator);
