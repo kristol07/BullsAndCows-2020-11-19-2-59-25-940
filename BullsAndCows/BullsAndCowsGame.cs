@@ -38,9 +38,19 @@ namespace BullsAndCows
                 .Count();
             var cows = secret.Where(secretChar => guess.Contains(secretChar)).Count() - bulls;
 
-            this.leftChance -= 1;
+            CountLeftChance(bulls);
 
             return $"{bulls}A{cows}B";
+        }
+
+        private void CountLeftChance(int bulls)
+        {
+            if (bulls == 4)
+            {
+                this.leftChance = 0;
+            }
+
+            this.leftChance -= 1;
         }
 
         private bool TryParseGuess(string guess, out string guessWithoutSpace)
