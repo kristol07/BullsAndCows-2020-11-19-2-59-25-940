@@ -44,7 +44,8 @@ namespace BullsAndCows
             var guessChars = guess.Trim().Split(' ');
             int num;
             if (guessChars.Length != 4 ||
-                guessChars.Distinct().Count() != 4)
+                guessChars.Distinct().Count() != 4 ||
+                guessChars.Where(guessChar => int.TryParse(guessChar, out num)).Count() != 4)
             {
                 guessWithoutSpace = string.Empty;
                 return false;

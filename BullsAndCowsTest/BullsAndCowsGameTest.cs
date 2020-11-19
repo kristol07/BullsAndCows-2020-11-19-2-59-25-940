@@ -150,6 +150,21 @@ namespace BullsAndCowsTest
 
             Assert.Equal("Wrong Input, input again", answer);
         }
+
+        [Theory]
+        [InlineData("1 2 d 4")]
+        [InlineData("d e t @")]
+        [InlineData("dfdsf 1 2 3")]
+        [InlineData("d ` $ @")]
+        public void Should_return_wrong_input_tip_when_some_input_are_not_digit(string guess)
+        {
+            var secretGenerator = new TestSecretGenerator();
+            var game = new BullsAndCowsGame(secretGenerator);
+
+            string answer = game.Guess(guess);
+
+            Assert.Equal("Wrong Input, input again", answer);
+        }
     }
 
     public class TestSecretGenerator : SecretGenerator
