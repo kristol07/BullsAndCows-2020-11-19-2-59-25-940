@@ -152,6 +152,7 @@ namespace BullsAndCowsTest
         }
 
         [Theory]
+        [InlineData("1 2 23 4")]
         [InlineData("1 2 d 4")]
         [InlineData("d e t @")]
         [InlineData("dfdsf 1 2 3")]
