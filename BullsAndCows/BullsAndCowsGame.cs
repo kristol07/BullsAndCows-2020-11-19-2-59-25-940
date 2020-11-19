@@ -21,14 +21,10 @@ namespace BullsAndCows
         public string Guess(string guess)
         {
             string guessWithoutSpace;
-            if (TryParseGuess(guess, out guessWithoutSpace))
-            {
-                return this.Compare(this.secret, guessWithoutSpace);
-            }
-            else
-            {
-                return "Wrong Input, input again";
-            }
+
+            return TryParseGuess(guess, out guessWithoutSpace)
+                ? this.Compare(this.secret, guessWithoutSpace)
+                : "Wrong Input, input again";
         }
 
         private string Compare(string secret, string guess)
@@ -45,16 +41,15 @@ namespace BullsAndCows
 
         private void CountLeftChance(int bulls)
         {
-            if (bulls == 4)
-            {
-                this.leftChance = 0;
-            }
-
-            this.leftChance -= 1;
+            this.leftChance =
+                bulls == 4
+                ? 0
+                : this.leftChance - 1;
         }
 
         private bool TryParseGuess(string guess, out string guessWithoutSpace)
         {
+            //var pattern = @"(?:(\d)(?!.*\1)){4}";
             var guessChars = guess.Trim().Split(' ');
             int num;
             if (guessChars.Length != 4 ||
