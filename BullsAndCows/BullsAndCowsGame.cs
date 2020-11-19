@@ -2,6 +2,7 @@
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Text.RegularExpressions;
 
 namespace BullsAndCows
 {
@@ -49,21 +50,13 @@ namespace BullsAndCows
 
         private bool TryParseGuess(string guess, out string guessWithoutSpace)
         {
-            //var pattern = @"(?:(\d)(?!.*\1)){4}";
-            var guessChars = guess.Trim().Split(' ');
-            int num;
-            if (guessChars.Length != 4 ||
-                guessChars.Distinct().Count() != 4 ||
-                guessChars.Where(guessChar =>
-                    int.TryParse(guessChar, out num) && Enumerable.Range(0, 10).Contains(num))
-                    .Count() != 4)
-            {
-                guessWithoutSpace = string.Empty;
-                return false;
-            }
+            var pattern = @"^\s*(\d\s){3}\d\s*$";
+            Match m = Regex.Match(guess, pattern);
 
-            guessWithoutSpace = string.Join(string.Empty, guessChars);
-            return true;
+            guessWithoutSpace = guess.Replace(" ", string.Empty);
+            var distinct = guessWithoutSpace.Distinct().Count() == 4;
+
+            return distinct && m.Success;
         }
     }
 }
