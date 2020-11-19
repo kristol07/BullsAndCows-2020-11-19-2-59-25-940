@@ -137,6 +137,19 @@ namespace BullsAndCowsTest
 
             Assert.Equal("Wrong Input, input again", answer);
         }
+
+        [Theory]
+        [InlineData("1 2 3 1")]
+        [InlineData("1 1 1 1")]
+        public void Should_return_wrong_input_tip_when_some_digits_are_same(string guess)
+        {
+            var secretGenerator = new TestSecretGenerator();
+            var game = new BullsAndCowsGame(secretGenerator);
+
+            string answer = game.Guess(guess);
+
+            Assert.Equal("Wrong Input, input again", answer);
+        }
     }
 
     public class TestSecretGenerator : SecretGenerator
