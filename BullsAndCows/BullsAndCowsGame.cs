@@ -26,15 +26,17 @@ namespace BullsAndCows
             var bulls = secret.Zip(guess, (secretChar, guessChar) => secretChar == guessChar)
                 .Where(match => match == true)
                 .Count();
-
-            if (secret == guess)
-            {
-                return $"{bulls}A0B";
-            }
+            int cows;
 
             if (secret.Where(secretChar => guess.Contains(secretChar)).Count() == 4)
             {
-                var cows = 4 - bulls;
+                cows = 4 - bulls;
+                return $"{bulls}A{cows}B";
+            }
+
+            cows = secret.Where(secretChar => guess.Contains(secretChar)).Count();
+            if (cows < 4 && cows > 0)
+            {
                 return $"{bulls}A{cows}B";
             }
 
