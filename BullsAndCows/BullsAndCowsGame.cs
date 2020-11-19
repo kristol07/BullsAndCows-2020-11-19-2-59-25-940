@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 
@@ -8,13 +9,14 @@ namespace BullsAndCows
     {
         private readonly SecretGenerator secretGenerator;
         private readonly string secret;
+        private int leftChance = 6;
         public BullsAndCowsGame(SecretGenerator secretGenerator)
         {
             this.secretGenerator = secretGenerator;
             this.secret = secretGenerator.GenerateSecret();
         }
 
-        public bool CanContinue => true;
+        public bool CanContinue => leftChance > 0 ? true : false;
 
         public string Guess(string guess)
         {
@@ -35,6 +37,8 @@ namespace BullsAndCows
                 .Where(match => match == true)
                 .Count();
             var cows = secret.Where(secretChar => guess.Contains(secretChar)).Count() - bulls;
+
+            this.leftChance -= 1;
 
             return $"{bulls}A{cows}B";
         }
