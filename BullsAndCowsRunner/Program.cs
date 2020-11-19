@@ -12,7 +12,7 @@ namespace BullsAndCowsRunner
             while (game.CanContinue)
             {
                 var input = Console.ReadLine();
-                var output = game.Guess(input);
+                var output = game.Judge(input);
                 Console.WriteLine(output);
             }
 
