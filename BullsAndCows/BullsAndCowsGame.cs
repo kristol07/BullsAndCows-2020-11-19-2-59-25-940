@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace BullsAndCows
 {
@@ -25,6 +26,11 @@ namespace BullsAndCows
             if (secret == guess)
             {
                 return "4A0B";
+            }
+
+            if (secret.Where(secretChar => guess.Contains(secretChar)).Count() == 4)
+            {
+                return "0A4B";
             }
 
             return "0A0B";

@@ -41,6 +41,20 @@ namespace BullsAndCowsTest
             //then
             Assert.Equal("4A0B", answer);
         }
+
+        [Fact]
+        public void Should_return_0A4B_when_all_digit_are_correct_but_random()
+        {
+            //given
+            var secretGenerator = new TestSecretGenerator();
+            var game = new BullsAndCowsGame(secretGenerator);
+
+            //when
+            string answer = game.Judge("4 3 2 1");
+
+            //then
+            Assert.Equal("0A4B", answer);
+        }
     }
 
     public class TestSecretGenerator : SecretGenerator
