@@ -15,7 +15,7 @@ namespace BullsAndCows
 
         public bool CanContinue => true;
 
-        public string Judge(string guess)
+        public string Guess(string guess)
         {
             var guessWithoutSpace = guess.Replace(" ", string.Empty);
             return this.Compare(this.secret, guessWithoutSpace);

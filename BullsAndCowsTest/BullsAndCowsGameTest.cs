@@ -1,4 +1,5 @@
 using BullsAndCows;
+using Moq;
 using Xunit;
 
 namespace BullsAndCowsTest
@@ -14,45 +15,57 @@ namespace BullsAndCowsTest
             Assert.True(game.CanContinue);
         }
 
-        [Fact]
-        public void Should_return_0A0B_when_all_digit_and_position_wrong()
+        [Theory]
+        [InlineData("5 6 7 8", "1234")]
+        [InlineData("1 2 3 4", "5678")]
+        public void Should_return_0A0B_when_all_digit_and_position_wrong(string guess, string secret)
         {
             //given
-            var secretGenerator = new TestSecretGenerator();
-            var game = new BullsAndCowsGame(secretGenerator);
+            var mockSecretGenerator = new Mock<SecretGenerator>();
+            mockSecretGenerator.Setup(mock => mock.GenerateSecret()).Returns(secret);
+            var game = new BullsAndCowsGame(mockSecretGenerator.Object);
 
             //when
-            string answer = game.Judge("5 6 7 8");
+            string answer = game.Guess(guess);
 
             //then
             Assert.Equal("0A0B", answer);
         }
 
-        [Fact]
-        public void Should_return_4A0B_when_all_digit_and_position_correct()
+        [Theory]
+        [InlineData("1 2 3 4", "1234")]
+        [InlineData("5 6 7 8", "5678")]
+        public void Should_return_4A0B_when_all_digit_and_position_correct(string guess, string secret)
         {
             //given
-            var secretGenerator = new TestSecretGenerator();
-            var game = new BullsAndCowsGame(secretGenerator);
+            //var secretGenerator = new TestSecretGenerator();
+            //var game = new BullsAndCowsGame(secretGenerator);
+            var mockSecretGenerator = new Mock<SecretGenerator>();
+            mockSecretGenerator.Setup(mock => mock.GenerateSecret()).Returns(secret);
+            var game = new BullsAndCowsGame(mockSecretGenerator.Object);
 
             //when
-            string answer = game.Judge("1 2 3 4");
+            string answer = game.Guess(guess);
 
             //then
             Assert.Equal("4A0B", answer);
         }
 
         [Theory]
-        [InlineData("4 3 1 2")]
-        [InlineData("4 3 2 1")]
-        public void Should_return_0A4B_when_all_digit_correct_and_all_position_wrong(string guess)
+        [InlineData("4 3 1 2", "1234")]
+        [InlineData("4 3 2 1", "1234")]
+        [InlineData("5 2 4 1", "1425")]
+        public void Should_return_0A4B_when_all_digit_correct_and_all_position_wrong(string guess, string secret)
         {
             //given
-            var secretGenerator = new TestSecretGenerator();
-            var game = new BullsAndCowsGame(secretGenerator);
+            //var secretGenerator = new TestSecretGenerator();
+            //var game = new BullsAndCowsGame(secretGenerator);
+            var mockSecretGenerator = new Mock<SecretGenerator>();
+            mockSecretGenerator.Setup(mock => mock.GenerateSecret()).Returns(secret);
+            var game = new BullsAndCowsGame(mockSecretGenerator.Object);
 
             //when
-            string answer = game.Judge(guess);
+            string answer = game.Guess(guess);
 
             //then
             Assert.Equal("0A4B", answer);
