@@ -23,21 +23,22 @@ namespace BullsAndCows
 
         private string Compare(string secret, string guess)
         {
+            var bulls = secret.Zip(guess, (secretChar, guessChar) => secretChar == guessChar)
+                .Where(match => match == true)
+                .Count();
+
             if (secret == guess)
             {
-                return "4A0B";
+                return $"{bulls}A0B";
             }
 
             if (secret.Where(secretChar => guess.Contains(secretChar)).Count() == 4)
             {
-                var bulls = secret.Zip(guess, (secretChar, guessChar) => secretChar == guessChar)
-                    .Where(match => match == true)
-                    .Count();
                 var cows = 4 - bulls;
                 return $"{bulls}A{cows}B";
             }
 
-            return "0A0B";
+            return $"{bulls}A0B";
         }
     }
 }
