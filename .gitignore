@@ -1,0 +1,13 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+.vs
+/BullsAndCows/bin
+/BullsAndCows/obj
+/BullsAndCowsTest/bin
+/BullsAndCowsTest/obj
+.idea
+/BullsAndCowsRunner/obj
+/BullsAndCowsRunner/bin
+BullsAndCows.sln.DotSettings.user
