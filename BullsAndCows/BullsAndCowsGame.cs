@@ -16,11 +16,17 @@ namespace BullsAndCows
 
         public string Judge(string guess)
         {
-            return this.Compare(this.secret, guess);
+            var guessWithoutSpace = guess.Replace(" ", string.Empty);
+            return this.Compare(this.secret, guessWithoutSpace);
         }
 
         private string Compare(string secret, string guess)
         {
+            if (secret == guess)
+            {
+                return "4A0B";
+            }
+
             return "0A0B";
         }
     }
