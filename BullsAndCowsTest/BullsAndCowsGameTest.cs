@@ -124,6 +124,19 @@ namespace BullsAndCowsTest
             //then
             Assert.Equal(bullcows, answer);
         }
+
+        [Theory]
+        [InlineData("1 2 3 4 5")]
+        [InlineData("1 2 3")]
+        public void Should_return_wrong_input_tip_when_number_of_digits_is_not_4(string guess)
+        {
+            var secretGenerator = new TestSecretGenerator();
+            var game = new BullsAndCowsGame(secretGenerator);
+
+            string answer = game.Guess(guess);
+
+            Assert.Equal("Wrong Input, input again", answer);
+        }
     }
 
     public class TestSecretGenerator : SecretGenerator
