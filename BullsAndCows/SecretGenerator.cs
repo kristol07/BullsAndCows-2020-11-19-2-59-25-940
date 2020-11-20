@@ -9,10 +9,11 @@ namespace BullsAndCows
         public virtual string GenerateSecret()
         {
             var random = new Random();
+            var len = 4;
             return Enumerable.Range(0, 10)
                              .OrderBy(num => random.Next())
                              .Select(num => $"{num}")
-                             .Take(4)
+                             .Take(len)
                              .Aggregate((pre, current) => pre + current);
         }
     }

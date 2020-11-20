@@ -16,7 +16,8 @@ namespace BullsAndCowsTest
             var secret = secretGenerator.GenerateSecret();
 
             var secretChars = secret.ToCharArray();
-            var actual = secretChars.Length == 4 && secretChars.Distinct().Count() == 4;
+            var len = 4;
+            var actual = secretChars.Length == len && secretChars.Distinct().Count() == len;
             Assert.Equal(true, actual);
         }
     }
